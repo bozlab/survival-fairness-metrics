@@ -9,17 +9,6 @@ The repository is intended to provide a transparent and reproducible record of a
 
 All analysis scripts are located in the repository root and are designed to be executed sequentially.
 
-# Survival Fairness Metrics
-
-This repository contains R scripts developed for survival analysis and comparative evaluation of model performance and fairness.  
-The codebase supports methodological analyses across multiple survival modeling approaches and subgroup structures.
-
-The repository is intended to provide a transparent and reproducible record of analytical workflows used in ongoing research.
-
-## Repository Structure
-
-All analysis scripts are located in the repository root and are designed to be executed sequentially.
-
 - **1.Data_Selection.R** – Cohort selection and outcome definition  
 - **2.Table1&2.R** – Descriptive statistics and baseline tables  
 - **3.KM_Curves.R** – Kaplan–Meier survival curves  
