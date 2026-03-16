@@ -52,7 +52,7 @@ km_plots <- mapply(function(model, title, legend_title, legend_lab) {
     title = title,
     legend.title = legend_title,
     legend.labs = legend_lab,
-    risk.table = FALSE,  # ⛔️ no risk table
+    risk.table = FALSE,  
     pval = TRUE,
     pval.size = 3,
     conf.int = TRUE,
@@ -83,7 +83,7 @@ km_plots <- mapply(function(model, title, legend_title, legend_lab) {
     p$plot <- p$plot + scale_y_continuous(expand = c(0, 0))
   }
   
-  return(p$plot)  # 👈 risk table olmadığı için sadece plot döndürüyoruz
+  return(p$plot)  # 
 }, km_models, plot_titles, legend_titles, legend_labels, SIMPLIFY = FALSE)
 
 # Combine plots into 2x3 grid
@@ -91,7 +91,7 @@ png("~/Dropbox/MyProject/TLCR/KM_6plots_final_norisktable.png", width = 10, heig
 grid.arrange(grobs = km_plots, ncol = 2, nrow = 3)
 dev.off()
 
-cat("✅ KM plots (no risk table) saved successfully.\n")
+cat("KM plots (no risk table) saved successfully.\n")
 
 
 # Save KM plots in vector PDF format (2x3 grid)
@@ -99,7 +99,7 @@ pdf("~/Dropbox/MyProject/TLCR/KM_6plots_final_norisktable.pdf", width = 10, heig
 grid.arrange(grobs = km_plots, ncol = 2, nrow = 3)
 dev.off()
 
-cat("✅ KM plots (no risk table) saved successfully as PDF.\n")
+cat("KM plots (no risk table) saved successfully as PDF.\n")
 
 
 
@@ -120,7 +120,7 @@ library(forcats)   # fct_recode, fct_relevel
 # ============================================================
 # Data
 # ============================================================
-data <- read.csv("~/Dropbox/MyProject/TLCR/data_n19254.csv")
+data <- read.csv("data_n19254.csv")
 
 # Event indicator
 data$event_status <- ifelse(data$Vital.status.recode == "Dead", 1, 0)
@@ -263,4 +263,4 @@ pdf("~KM_6plots_final_norisktable.pdf",
 grid.arrange(grobs = km_plots, ncol = 2, nrow = 3)
 dev.off()
 
-cat("✅ KM plots (no risk table) saved successfully (PNG + PDF).\n")
+cat("KM plots (no risk table) saved successfully (PNG + PDF).\n")
