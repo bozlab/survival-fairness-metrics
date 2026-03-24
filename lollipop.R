@@ -9,9 +9,15 @@ library(cowplot)
 # ============================================================
 # 1) Subgroup performance results for all three models
 #    (point estimates only; CIs stay in the Supplement table)
+#    + Overall TEST SET row added at the top
 # ============================================================
 perf_raw <- tribble(
   ~Subgroup,    ~Level,              ~Model,       ~Cindex, ~IBS,   ~iAUC,
+  
+  #----------------- Overall (TEST SET) -----------------
+  "Overall",    "Test set",          "CoxPH",        0.687,   0.065,  0.802,
+  "Overall",    "Test set",          "RSF",          0.653,   0.063,  0.819,
+  "Overall",    "Test set",          "BlackBoost",   0.694,   0.064,  0.815,
   
   #----------------- Sex -----------------
   "Sex",        "Female",            "CoxPH",        0.695,   0.082,  0.786,
@@ -98,11 +104,13 @@ perf_raw <- perf_raw %>%
     Level = factor(
       Level,
       levels = c(
+        # Overall
+        "Test set",
         # Sex
         "Female", "Male",
         # Age 
         "20–54", "55–64", "65–74", "75–84", "85+",
-        # Race (Black – White – Other)
+        # Race
         "Black", "White", "Other",
         # Marital
         "Married", "Others",
@@ -121,13 +129,18 @@ perf_raw <- perf_raw %>%
 perf_long <- perf_raw %>%
   mutate(
     Subgroup = recode(Subgroup, "Urban / Rural" = "Urban/Rural"),
-    Subgroup = factor(Subgroup,
-                      levels = c("Sex", "Age", "Race",
-                                 "Marital Status", "Income", "Urban/Rural")),
-    Model    = factor(Model, levels = c("CoxPH", "RSF", "BlackBoost"))
+    Subgroup = factor(
+      Subgroup,
+      levels = c("Overall", "Sex", "Age", "Race",
+                 "Marital Status", "Income", "Urban/Rural")
+    ),
+    Model = factor(Model, levels = c("CoxPH", "RSF", "BlackBoost"))
   ) %>%
-  pivot_longer(cols = c(Cindex, IBS, iAUC),
-               names_to = "Metric", values_to = "Value")
+  pivot_longer(
+    cols = c(Cindex, IBS, iAUC),
+    names_to = "Metric",
+    values_to = "Value"
+  )
 
 line_data <- perf_long %>%
   group_by(Subgroup, Metric, Level) %>%
@@ -142,9 +155,9 @@ line_data <- perf_long %>%
   )
 
 model_cols <- c(
-  "CoxPH"        = "#4E79A7",
-  "RSF"          = "#F28E2B",
-  "BlackBoost"   = "#59A14F"
+  "CoxPH"      = "#4E79A7",
+  "RSF"        = "#F28E2B",
+  "BlackBoost" = "#59A14F"
 )
 
 # ============================================================
@@ -162,20 +175,23 @@ make_lolli <- function(metric_name,
   line_m <- line_data %>% filter(Metric == metric_name)
   
   p <- ggplot() +
-    # grey reference segments
-    geom_segment(data = line_m,
-                 aes(x = xmin, xend = xmax, y = Level, yend = Level),
-                 color = "grey85", linewidth = 0.4) +
-    # points for each model
-    geom_point(data = df_m,
-               aes(x = Value, y = Level, color = Model),
-               size = 2) +
+    geom_segment(
+      data = line_m,
+      aes(x = xmin, xend = xmax, y = Level, yend = Level),
+      color = "grey85", linewidth = 0.4
+    ) +
+    geom_point(
+      data = df_m,
+      aes(x = Value, y = Level, color = Model),
+      size = 2
+    ) +
     facet_grid(
       Subgroup ~ .,
       scales = "free_y",
       space  = "free_y",
       labeller = labeller(
         Subgroup = c(
+          "Overall"        = "Overall",
           "Sex"            = "Sex",
           "Age"            = "Age",
           "Race"           = "Race",
@@ -189,12 +205,12 @@ make_lolli <- function(metric_name,
     scale_x_continuous(limits = x_limits, breaks = x_breaks) +
     scale_y_discrete(limits = function(x) rev(x)) +
     labs(x = x_lab, y = NULL) +
-    theme_bw(base_size = 11) +                 
+    theme_bw(base_size = 11) +
     theme(
       panel.grid.major.y = element_blank(),
       panel.grid.minor   = element_blank(),
-      axis.text.x        = element_text(size = 11), 
-      axis.text.y        = element_text(size = 11), 
+      axis.text.x        = element_text(size = 11),
+      axis.text.y        = element_text(size = 11),
       legend.position    = if (show_legend) "top" else "none",
       legend.direction   = "horizontal",
       legend.title       = element_text(face = "bold", size = 11),
@@ -220,11 +236,11 @@ make_lolli <- function(metric_name,
   } else {
     p <- p +
       theme(
-        strip.text.y     = element_text(
+        strip.text.y = element_text(
           face   = "bold",
           angle  = 0,
           margin = margin(t = 2, b = 2, l = 2, r = 12),
-          size   = 11            
+          size   = 11
         )
       )
   }
@@ -271,9 +287,9 @@ p_iauc <- make_lolli(
 final_plot <- (p_cindex + p_ibs + p_iauc) +
   plot_layout(nrow = 1, guides = "collect") &
   theme(
-    legend.position   = "top",
-    legend.direction  = "horizontal",
-    legend.title      = element_text(face = "bold")
+    legend.position  = "top",
+    legend.direction = "horizontal",
+    legend.title     = element_text(face = "bold")
   )
 
 final_plot
@@ -281,8 +297,12 @@ final_plot
 # ============================================================
 # 6) Save as PNG and vector PDF
 # ============================================================
-ggsave("Figure_subgroup_performance_lollipop_3models_final.png",
-       final_plot, width = 11, height = 5, dpi = 300)
+ggsave(
+  "Figure_subgroup_performance_lollipop_3models_final_with_overall.png",
+  final_plot, width = 11, height = 5, dpi = 300
+)
 
-ggsave("Figure_subgroup_performance_lollipop_3models_final.pdf",
-       final_plot, width = 11, height = 5, device = "pdf")
+ggsave(
+  "Figure_subgroup_performance_lollipop_3models_final_with_overall.pdf",
+  final_plot, width = 11, height = 5, device = "pdf"
+)
