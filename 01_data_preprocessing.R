@@ -1,5 +1,4 @@
 # =========================================================
-# Script: 01_data_preprocessing.R
 # Project: Survival and Fairness Analysis in Metastatic NSCLC
 # Description:
 # This script prepares the analytic dataset from SEER data
