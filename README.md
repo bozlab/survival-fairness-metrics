@@ -171,7 +171,6 @@ install.packages(c(
   "ggplot2","patchwork","cowplot","DiagrammeR",
   "DiagrammeRsvg","rsvg","caret","broom","stringr"
 ))
----
 
 ## Input Data Format
 
@@ -222,3 +221,100 @@ The analysis uses a dataset derived from the SEER database.
   - 0 = censored  
 
 - All categorical variables are treated as factors.
+
+---
+
+## Models
+
+The following survival models were evaluated:
+
+- Cox Proportional Hazards (CoxPH)  
+- Random Survival Forest (RSF)  
+- BlackBoost (gradient boosting for survival data)  
+
+---
+
+## Performance Evaluation
+
+Model performance was evaluated using multiple complementary metrics:
+
+### Discrimination
+- **C-index (Concordance index)**
+
+### Prediction Error
+- **Integrated Brier Score (IBS)**
+
+### Time-dependent Discrimination
+- **Integrated AUC (iAUC)**
+
+### Evaluation Strategy
+
+- Performance metrics were computed for both training and test datasets  
+- Evaluated at multiple time horizons (24, 36, 60 months)  
+- Bootstrap resampling was used to assess robustness  
+
+### Subgroup Evaluation
+
+Performance was further assessed across:
+
+- Age  
+- Sex  
+- Race  
+- Marital status  
+- Income  
+- Urban/Rural status  
+
+to examine heterogeneity in model performance.
+
+---
+
+## How to Run the Code
+
+Run the scripts sequentially:
+
+1. `01_data_preprocessing.R`  
+2. `02_descriptive_tables.R`  
+3. `03_km_subgroup_plots.R`  
+4. `04_cox_tables_full_and_train.R`  
+5. `05_data_split.R`  
+6. `07_metrics_train_test.R`  
+7. `08_fairness_keya.R`  
+8. `09_intersectional_performance.R`  
+
+Visualization scripts can be executed after model outputs are generated.
+
+---
+
+## Data Availability
+
+The data used in this study were obtained from the SEER database.
+
+Due to data use agreements, the dataset cannot be publicly shared.  
+Researchers can access SEER data via:
+
+https://seer.cancer.gov/
+
+---
+
+## Reproducibility
+
+- All analyses are conducted in R  
+- Fixed random seeds are used  
+- Scripts are modular and can be executed independently  
+
+---
+
+## Notes
+
+- Primary results reported in the manuscript are based on:
+  - `07_metrics_train_test.R`
+  - `08_fairness_keya.R`
+  - `09_intersectional_performance.R`
+
+- Additional scripts are included for transparency and supplementary analyses.
+
+---
+
+## Disclaimer
+
+This repository is intended for research purposes and reflects the analytical workflow used in the associated study.
