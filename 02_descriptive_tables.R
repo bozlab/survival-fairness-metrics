@@ -1,5 +1,4 @@
 # =========================================================
-# Script: 02_descriptive_tables.R
 # Description:
 # Generates Table 1 (descriptive summary) and Table 2
 # (alive/dead counts over time) from the cleaned dataset.
