@@ -233,13 +233,25 @@ The preprocessing pipeline implemented in `01_data_preprocessing.R`:
 
 ## Performance Evaluation
 
-Model performance was evaluated using:
+Model performance and fairness were evaluated using complementary metrics.
+
+### Discrimination and Prediction Error
 
 - C-index  
 - Integrated Brier Score (IBS)  
-- Integrated AUC (iAUC)  
+- Integrated time-dependent AUC (iAUC)  
 
-Performance was assessed on training and test datasets and across subgroups.
+### Fairness Metrics
+
+- Individual Fairness (Fi)  
+- Group Fairness (Fg)  
+- Intersectional Fairness (F∩)  
+- Concordance Imparity (CI%)  
+
+### Evaluation Strategy
+
+- Metrics were computed on both training and test datasets  
+- Performance and fairness were assessed across demographic and clinical subgroups  
 
 ---
 
