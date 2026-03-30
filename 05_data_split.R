@@ -1,3 +1,15 @@
+# =========================================================
+# Script: 05_data_split.R
+# Description:
+# Performs a stratified 70/30 train-test split based on event status
+#
+# Input:
+# - data_n19254.csv
+#
+# Output:
+# - train_data_seer.csv
+# - test_data_seer.csv
+# =========================================================
 ### Data Split ###
 # Load required libraries
 library(survival)
