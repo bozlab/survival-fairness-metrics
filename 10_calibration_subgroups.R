@@ -453,4 +453,4 @@ export_onepage("BlackBoost",
                file.path(PLOT_DIR, "Calibration_BySubgroups_BlackBoost_styleMatched.pdf"),
                ax_max = AX_MAX)
 
-message("✅ Saved 24/36/60-month calibration PDFs to: ", PLOT_DIR)
+message("Saved 24/36/60-month calibration PDFs to: ", PLOT_DIR)
