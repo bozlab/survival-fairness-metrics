@@ -432,4 +432,4 @@ export_onepage_all(
   ax_max = AX_MAX
 )
 
-message("✅ Saved 12-month combined calibration PDF to: ", PLOT_DIR)
+message("Saved 12-month combined calibration PDF to: ", PLOT_DIR)
