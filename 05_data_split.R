@@ -1,5 +1,4 @@
 # =========================================================
-# Script: 05_data_split.R
 # Description:
 # Performs a stratified 70/30 train-test split based on event status
 #
