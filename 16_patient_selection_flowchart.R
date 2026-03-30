@@ -99,4 +99,4 @@ rsvg_pdf("Figure_flowchart_wrap_revised.svg",
          width = 7.2,
          height = 11)
 
-cat("✅ Revised flowchart saved successfully.\n")
+cat("Revised flowchart saved successfully.\n")
