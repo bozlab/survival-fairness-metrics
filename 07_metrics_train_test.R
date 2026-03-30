@@ -382,4 +382,4 @@ write_xlsx(
   ),
   path = out_path
 )
-cat("✅ Saved → ", out_path, "\n", sep = "")
+cat("Saved → ", out_path, "\n", sep = "")
