@@ -6,19 +6,35 @@ The codebase is designed to ensure **transparency, reproducibility, and clarity*
 
 ---
 
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Repository Structure](#repository-structure)
+3. [Environment Setup](#environment-setup)
+4. [Input Data Format](#input-data-format)
+5. [Models](#models)
+6. [Performance Evaluation](#performance-evaluation)
+7. [How to Run the Code](#how-to-run-the-code)
+8. [Data Availability](#data-availability)
+9. [Reproducibility](#reproducibility)
+10. [Notes](#notes)
+11. [Disclaimer](#disclaimer)
+
+---
+
 ## Overview
 
 The analysis includes:
 
-- Cohort construction and preprocessing
-- Descriptive statistics and baseline characteristics
-- Kaplan–Meier survival analysis
-- Cox proportional hazards modeling
-- Machine learning survival models (RSF, BlackBoost)
-- Model performance evaluation (C-index, IBS, iAUC)
-- Calibration analysis
-- Fairness assessment using the Keya et al. framework
-- Intersectional performance analysis
+- Cohort construction and preprocessing  
+- Descriptive statistics and baseline characteristics  
+- Kaplan–Meier survival analysis  
+- Cox proportional hazards modeling  
+- Machine learning survival models (RSF, BlackBoost)  
+- Model performance evaluation (C-index, IBS, iAUC)  
+- Calibration analysis  
+- Fairness assessment using the Keya et al. framework  
+- Intersectional performance analysis  
 - Visualization of results (forest plots, calibration curves, fairness plots)
 
 ---
@@ -28,100 +44,181 @@ The analysis includes:
 All scripts are located in the root directory and are intended to be run sequentially.
 
 ### Data Preparation and Descriptive Analysis
+
 - `01_data_preprocessing.R`  
-  Cohort selection, data cleaning, and variable preparation.
+  Performs cohort selection, applies inclusion/exclusion criteria, and prepares the final analytic dataset.
 
 - `02_descriptive_tables.R`  
-  Generation of Table 1 (baseline characteristics) and Table 2 (alive/dead counts over time).
+  Generates:
+  - Table 1: Baseline characteristics  
+  - Table 2: Alive/dead counts over fixed time points  
 
 ---
 
 ### Survival Analysis
+
 - `03_km_subgroup_plots.R`  
-  Kaplan–Meier survival curves across key subgroups.
+  Produces Kaplan–Meier survival curves stratified by key demographic and clinical subgroups.
 
 - `04_cox_tables_full_and_train.R`  
-  Univariable and multivariable Cox regression analyses (Table 3 and Table 4).
+  Performs univariable and multivariable Cox regression analyses and generates:
+  - Table 3: Full dataset results  
+  - Table 4: Training dataset results  
 
 ---
 
 ### Data Splitting
+
 - `05_data_split.R`  
-  Stratified train–test split based on event status.
+  Performs a stratified 70/30 train–test split based on event status.
 
 ---
 
 ### Model Evaluation
+
 - `06_main_model_evaluation.R`  
-  Comprehensive model evaluation pipeline including performance metrics and alternative fairness calculations (used for exploratory analysis).
+  Comprehensive evaluation pipeline including model fitting, performance estimation, and exploratory fairness calculations.  
+  This script is provided for methodological completeness.
 
 - `07_metrics_train_test.R`  
-  Primary performance evaluation (C-index, IBS, iAUC) on training and test datasets.
+  Primary performance evaluation used in the manuscript.  
+  Computes:
+  - C-index  
+  - Integrated Brier Score (IBS)  
+  - Integrated AUC (iAUC)  
+  on training and test datasets.
 
 ---
 
 ### Fairness Analysis
+
 - `08_fairness_keya.R`  
-  Main fairness analysis based on the framework proposed by Keya et al., including:
-  - Individual fairness (Fi)
-  - Group fairness (Fg)
-  - Concordance imparity (CI%)
-  - Intersectional fairness
+  Main fairness analysis based on the framework proposed by Keya et al.  
+  Computes:
+  - Individual fairness (Fi)  
+  - Group fairness (Fg)  
+  - Concordance imparity (CI%)  
+  - Intersectional fairness  
 
 ---
 
 ### Advanced Analyses
+
 - `09_intersectional_performance.R`  
-  Intersectional subgroup performance analysis to identify heterogeneity in model discrimination.
+  Evaluates model performance across intersectional subgroup combinations to identify heterogeneity.
 
 - `10_model_comparison_and_timing.R`  
-  Supplementary analysis including model comparison and computational benchmarking.
+  Provides supplementary analyses including model comparison and computational benchmarking.
 
 ---
 
 ### Calibration Analysis
+
 - `11_calibration_subgroups.R`  
-  Subgroup-specific calibration curves at multiple time horizons (24, 36, 60 months).
+  Generates subgroup-specific calibration curves at multiple time horizons (24, 36, 60 months).
 
 - `12_calibration_12m_all_models.R`  
-  Calibration analysis at a fixed 12-month horizon across all models.
+  Generates calibration plots at a fixed 12-month horizon across all models.
 
 ---
 
 ### Visualization Scripts
+
 - `13_forestplot_multivariable_cox.R`  
-  Forest plot for multivariable Cox model with hazard ratios and event counts.
+  Produces the forest plot for the multivariable Cox model including hazard ratios, confidence intervals, and event counts.
 
 - `14_fairness_barplot.R`  
-  Bar plots summarizing fairness metrics (CI%, Fi, Fg) across models and subgroups.
+  Generates bar plots summarizing fairness metrics (CI%, Fi, Fg) across models and subgroups.
 
 - `15_lollipop_subgroup_performance.R`  
-  Lollipop plots illustrating subgroup-specific performance (C-index, IBS, iAUC).
+  Produces lollipop plots illustrating subgroup-specific performance (C-index, IBS, iAUC).
 
 - `16_patient_selection_flowchart.R`  
-  Flowchart describing cohort selection and exclusion criteria (Figure 1).
+  Generates the cohort selection flowchart with detailed exclusion criteria.
 
 ---
 
-## Reproducibility
+## Environment Setup
 
-- All analyses are conducted in **R**
-- Random processes use fixed seeds for reproducibility
-- Scripts are modular and can be executed independently after preprocessing
+All analyses were conducted in **R (version ≥ 4.2.0)**.
 
+### Required R Packages
+
+- survival  
+- survminer  
+- randomForestSRC  
+- mboost  
+- pec  
+- riskRegression  
+- dplyr  
+- tidyverse  
+- ggplot2  
+- patchwork  
+- cowplot  
+- DiagrammeR  
+- DiagrammeRsvg  
+- rsvg  
+- caret  
+- broom  
+- stringr  
+
+Install all required packages using:
+
+```r
+install.packages(c(
+  "survival","survminer","randomForestSRC","mboost",
+  "pec","riskRegression","dplyr","tidyverse",
+  "ggplot2","patchwork","cowplot","DiagrammeR",
+  "DiagrammeRsvg","rsvg","caret","broom","stringr"
+))
 ---
 
-## Notes
+## Input Data Format
 
-- The primary results reported in the manuscript are based on:
-  - `07_metrics_train_test.R`
-  - `08_fairness_keya.R`
-  - `09_intersectional_performance.R`
+The analysis uses a dataset derived from the SEER database.
 
-- Additional scripts (e.g., model benchmarking and alternative evaluation pipelines) are provided for completeness and transparency.
+### Main Input File
 
----
+- `data_n19254.csv` → Final analytic cohort (n = 19,254)
 
-## Disclaimer
+### Required Variables
 
-This repository is intended for research purposes and reflects the analytical workflow used in the associated study.
+**Time-to-event variables**
+- Survival.months  
+- Vital.status.recode  
+
+**Demographic variables**
+- Age_grouped  
+- Gender  
+- Race_grouped  
+- Marital_grouped  
+- Income_group  
+- Urban_Rural  
+
+**Clinical variables**
+- Primary_site_grouped  
+- Histology_grouped  
+- Grade_grouped  
+- Laterality_grouped  
+- T_stage_recoded  
+- N_stage_combined  
+- M_stage_combined  
+
+**Treatment variables**
+- Surgery  
+- Chemotherapy  
+- Radiation  
+
+**Metastasis indicators**
+- Bone_met  
+- Liver_met  
+- Lung_met  
+- Brain_met  
+
+### Notes
+
+- `event_status` is generated within scripts:
+  - 1 = death  
+  - 0 = censored  
+
+- All categorical variables are treated as factors.
