@@ -148,7 +148,7 @@ png("KM_6plots_final_norisktable.png",
 grid.arrange(grobs = km_plots, ncol = 2, nrow = 3)
 dev.off()
 
-pdf("~KM_6plots_final_norisktable.pdf",
+pdf("KM_6plots_final_norisktable.pdf",
     width = 10, height = 10)
 grid.arrange(grobs = km_plots, ncol = 2, nrow = 3)
 dev.off()
