@@ -1,5 +1,8 @@
 # ============================================================
-# FULL FINAL FOREST PLOT
+# # NOTE:
+# This script generates the final multivariable Cox forest plot,
+# including event counts and adjusted hazard ratios with 95% confidence intervals.
+# This figure is used in the manuscript.
 # Multivariable Cox model with:
 # Variable | Events / N (%) | Forest | Adjusted HR (95% CI)
 # ============================================================
@@ -444,4 +447,4 @@ ggsave(
   bg = "white"
 )
 
-cat("✅ Final forest plot saved successfully.\n")
+cat("Final forest plot saved successfully.\n")
