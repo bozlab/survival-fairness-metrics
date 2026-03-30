@@ -893,5 +893,5 @@ append_to_excel <- function(path, new_tabs){
 }
 
 append_to_excel(OUT_XLS_FAIR, new_sheets)
-log_i("📄 Appended horizon-specific fairness sheets → %s", OUT_XLS_FAIR)
+log_i("Appended horizon-specific fairness sheets → %s", OUT_XLS_FAIR)
 # ============================================================
