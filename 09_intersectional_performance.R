@@ -246,5 +246,5 @@ write_csv(worst_cells,  file.path(OUT_DIR, "inter_cells_tauInf_worst3.csv"))
 write_csv(largest_gaps, file.path(OUT_DIR, "inter_cells_tauInf_largest_gaps.csv"))
 write_csv(vulnerable_levels, file.path(OUT_DIR, "inter_cells_tauInf_vulnerable_levels.csv"))
 
-cat("\n✅ Export complete. Folder: ", OUT_DIR, "\n")
+cat("\n Export complete. Folder: ", OUT_DIR, "\n")
 # ============================================================
