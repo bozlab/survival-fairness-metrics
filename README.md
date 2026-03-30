@@ -28,7 +28,7 @@ The analysis includes:
 
 - Cohort construction and preprocessing  
 - Descriptive statistics and baseline characteristics  
-- Kaplan–Meier survival analysis  
+- Kaplan-Meier survival analysis  
 - Cox proportional hazards modeling  
 - Machine learning survival models (RSF, BlackBoost)  
 - Model performance evaluation (C-index, IBS, iAUC)  
