@@ -41,7 +41,7 @@ The analysis includes:
 
 ## Repository Structure
 
-All scripts are located in the repository root and are intended to be run sequentially.
+All scripts are located in the `code/` directory and are intended to be run sequentially.
 
 ### Data Preparation and Descriptive Analysis
 
