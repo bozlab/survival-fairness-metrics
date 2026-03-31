@@ -274,9 +274,11 @@ Run scripts sequentially:
 
 The data used in this study were obtained from the SEER database.
 
-Due to data use agreements, the dataset cannot be publicly shared.
+Due to data use agreements, the dataset cannot be publicly shared. Researchers can access SEER data directly from the official SEER program:
 
 https://seer.cancer.gov/
+
+The analytic dataset used in this study was derived from the original SEER extract through a reproducible preprocessing pipeline implemented in this repository.
 
 ---
 
